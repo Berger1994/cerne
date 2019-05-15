@@ -1,0 +1,21 @@
+{
+  "name": "my-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "gulp serve"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@webcomponents/webcomponentsjs": "^2.2.10",
+    "lit-element": "^2.1.0"
+  },
+  "devDependencies": {
+    "del": "^4.1.1",
+    "gulp": "^4.0.2",
+    "gulp-rename": "^1.4.0",
+    "gulp-replace": "^1.0.0"
+  }
+}
