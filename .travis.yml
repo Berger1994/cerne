@@ -1,5 +1,16 @@
-language: java
-sudo: false # faster builds
+# single test suite, non-parallel build.
 
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+env:
+  global:
+    - CC_TEST_REPORTER_ID=cf6714eea7d2c30ff06fd8e263d20ca35e9570d44f902f8bfdafcc10a3393919
+language: java
+rvm:
+  - 2.2.0
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+script:
+  - bundle exec rspec
+after_script:
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
