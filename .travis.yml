@@ -4,13 +4,15 @@ env:
   global:
     - CC_TEST_REPORTER_ID=cf6714eea7d2c30ff06fd8e263d20ca35e9570d44f902f8bfdafcc10a3393919
 language: java
-rvm:
-  - 2.2.0
+sudo: false # faster builds
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
 script:
-  - bundle exec rspec
+  - mvn test
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter format-coverage -d -t jacoco ./target/jacoco-ut/jacoco.xml
+  - ./cc-test-reporter upload-coverage -d
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
